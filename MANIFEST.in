@@ -1,0 +1,3 @@
+recursive-include src *.py
+global-exclude *.pyc
+include HISTORY.txt

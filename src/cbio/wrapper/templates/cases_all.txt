@@ -1,0 +1,5 @@
+cancer_study_identifier: $cancer_study_identifier
+stable_id: $stable_id
+case_list_name: $case_list_name
+case_list_description: $case_list_description
+case_list_ids: $case_list_ids

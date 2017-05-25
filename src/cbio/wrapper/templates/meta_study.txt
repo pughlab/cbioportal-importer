@@ -1,0 +1,9 @@
+type_of_cancer: $type_of_cancer
+cancer_study_identifier: $cancer_study_identifier
+name: $name
+description: $description
+citation: $citation
+pmid: $pmid
+groups: $groups
+short_name: $short_name
+add_global_case_list: $add_global_case_list

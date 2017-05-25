@@ -1,0 +1,8 @@
+cancer_study_identifier: $cancer_study_identifier
+genetic_alteration_type: $genetic_alteration_type
+datatype: CONTINUOUS
+stable_id: $stable_id
+show_profile_in_analysis_tab: false
+profile_name: $profile_name
+profile_description: $profile_description
+data_filename: $data_filename

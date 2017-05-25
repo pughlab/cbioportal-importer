@@ -1,0 +1,7 @@
+Changelog for cbio-importer
+=======================
+
+1.0.1 (2017-05-25)
+-------------------
+
+- kzhu: create new cbioportal-importer package
