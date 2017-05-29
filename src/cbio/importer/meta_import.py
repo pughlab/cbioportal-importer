@@ -7,9 +7,7 @@ __author__ = 'priti'
 
 import argparse
 from cbio.core.base import logger
-from cbio.core.constants import JAR_PATH, UCSC_BUILD, NCBI_BUILD, SPECIES
 import sys
-
 import cbioportal_importer
 import validate_data
 
@@ -59,9 +57,6 @@ def interface():
     parser.add_argument('-P', '--portal_properties', type=str,
                         help='portal.properties file path (default: assumed hg19)',
                         required=False)
-    parser.add_argument('-g', '--reference_genome', action='store_true',
-                        help='load reference genome info from args',
-                        required=False)
     parser.add_argument('-jar', '--jar_path', type=str, required=False,
                         help='Path to scripts JAR file (default: $PORTAL_HOME/scripts/target/scripts-*.jar)')
     parser.add_argument('-html', '--html_table', type=str,
@@ -70,7 +65,8 @@ def interface():
                         help='report status info messages while validating')
     parser.add_argument('-o', '--override_warning', action='store_true',
                         help='override warnings and continue importing')
-
+    parser.add_argument('-c', '--config_file', type=str, required=False,
+                        help='Path to extra configuration file')
     parser = parser.parse_args()
     return parser
 
@@ -83,13 +79,24 @@ def main():
     args = interface()
     # supply parameters that the validation script expects to have parsed
     args.error_file = False
-    if args.reference_genome:
-        args.genome_build = UCSC_BUILD
-        args.ncbi_build = NCBI_BUILD
-        args.species = SPECIES
+    # override genome properties from extra configuration file
+    if args.config_file:
+        import ConfigParser, os
+        try:
+            config = ConfigParser.ConfigParser()
+            with open(args.config_file) as fp:
+                config.readfp(fp, filename=args.config_file)
+            args.genome_build = config.get("reference_genome", "ucsc_build")
+            logger.info("reference genome build used: {0}".format(args.genome_build))
+            args.ncbi_build = config.get("reference_genome", "ncbi_build")
+            args.species = config.get("reference_genome", "species")
 
-    if not args.jar_path:
-        args.jar_path = JAR_PATH
+            if not args.jar_path:
+                args.jar_path = config.get('java_file', 'jar_path')
+        except IOError, e:
+            logger.error("fatal: error reading extra configuration file: '{0}'".format(args.config_file))
+            logger.error(e)
+            sys.exit(1)
 
     study_dir = args.study_directory
 

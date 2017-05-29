@@ -3153,7 +3153,7 @@ def main_validate(args):
     else:
         portal_instance = load_portal_info(server_url, logger)
 
-    if args.reference_genome:
+    if args.config_file:
         portal_instance.load_genome_info_from_arg(args)
     else:
         portal_instance.load_genome_info(args.portal_properties)
