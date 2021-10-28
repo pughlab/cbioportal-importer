@@ -1,5 +1,5 @@
 # cbioportal-importer
-python package to load cancer genomics data sets into the cbioportal database. 
+python package to load cancer genomics data sets into the cbioportal database. ; not live
 ## A Quickstart Quide for Building the cbioportal importer
 1. check out cbioportal importer from github
 ```git clone https://github.com/pughlab/cbioportal-importer.git```
